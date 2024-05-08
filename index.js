@@ -16,7 +16,9 @@ let resetButton;
 let closeButton;
 let randomNumber;
 
-startBtn.addEventListener('click', () => {
+startBtn.addEventListener('click', startGame);
+
+function startGame() {
   let start = Number(startField.value) || 1;
   let end = Number(endField.value) || 100;
   let count = Number(countField.value) || 10;
@@ -27,12 +29,12 @@ startBtn.addEventListener('click', () => {
   endField.disabled = true;
   countField.disabled = true;
   console.log(randomNumber); //for test 
-});
+}
 
 function checkGuess() {
   const userGuess = Number(guessField.value);
   if (guessCount === 1) {
-    guesses.textContent = "Previous guesses:";
+    guesses.textContent = " guesses:";
   }
   guesses.textContent = `${guesses.textContent} ${userGuess}`;
 
@@ -68,7 +70,7 @@ function setGameOver() {
   guessField.disabled = true;
   guessSubmit.disabled = true;
   resetButton = document.createElement("button");
-  resetButton.textContent = "Start new game";
+  resetButton.textContent = "Play Again";
   document.body.append(resetButton);
   resetButton.addEventListener("click", resetGame);
 }
@@ -88,9 +90,15 @@ function resetGame() {
   guessField.value = "";
   guessField.focus();
 
+  startField.disabled = false;
+  endField.disabled = false;
+  countField.disabled = false;
+
   lastResult.style.backgroundColor = "white";
 
-  randomNumber = Math.floor(Math.random() * 100) + 1;
+  document.querySelector('#game').style.display = 'none';
+
+  // randomNumber = Math.floor(Math.random() * 100) + 1;
 }
 
 
