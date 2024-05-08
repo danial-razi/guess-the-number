@@ -72,3 +72,7 @@ function resetGame() {
   randomNumber = Math.floor(Math.random() * 100) + 1;
 }
 
+const startBtn = document.querySelector('#startBtn');
+startBtn.addEventListener('click', () => {
+  document.querySelector('#game').style.display = 'block';
+});
