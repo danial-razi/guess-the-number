@@ -1,4 +1,3 @@
-let randomNumber = Math.floor(Math.random() * 100) + 1;
 
 const guesses = document.querySelector(".guesses");
 const lastResult = document.querySelector(".lastResult");
@@ -7,8 +6,28 @@ const lowOrHi = document.querySelector(".lowOrHi");
 const guessSubmit = document.querySelector(".guessSubmit");
 const guessField = document.querySelector(".guessField");
 
+const startField = document.querySelector('#start');
+const endField = document.querySelector("#end");
+const countField = document.querySelector('#count');
+const startBtn = document.querySelector('#startBtn');
+
 let guessCount = 1;
 let resetButton;
+let closeButton;
+let randomNumber;
+
+startBtn.addEventListener('click', () => {
+  let start = Number(startField.value) || 1;
+  let end = Number(endField.value) || 100;
+  let count = Number(countField.value) || 10;
+  const range = end - start + 1;
+  randomNumber = Math.floor(Math.random() * range) + start;
+  document.querySelector('#game').style.display = 'block';
+  startField.disabled = true;
+  endField.disabled = true;
+  countField.disabled = true;
+  console.log(randomNumber); //for test 
+});
 
 function checkGuess() {
   const userGuess = Number(guessField.value);
@@ -20,15 +39,17 @@ function checkGuess() {
   if (userGuess === randomNumber) {
     lastResult.textContent = "Congratulations! You got it right!";
     lastResult.style.backgroundColor = "green";
+    lastResult.style.color = 'white';
     lowOrHi.textContent = "";
     setGameOver();
-  } else if (guessCount === 10) {
+  } else if (guessCount === (Number(countField.value) || 10)) {
     lastResult.textContent = "!!!GAME OVER!!!";
     lowOrHi.textContent = "";
     setGameOver();
   } else {
     lastResult.textContent = "Wrong!";
     lastResult.style.backgroundColor = "red";
+    lastResult.style.color = 'white';
     if (userGuess < randomNumber) {
       lowOrHi.textContent = "Last guess was too low!";
     } else if (userGuess > randomNumber) {
@@ -72,7 +93,4 @@ function resetGame() {
   randomNumber = Math.floor(Math.random() * 100) + 1;
 }
 
-const startBtn = document.querySelector('#startBtn');
-startBtn.addEventListener('click', () => {
-  document.querySelector('#game').style.display = 'block';
-});
+
