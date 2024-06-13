@@ -4,41 +4,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Guess The Number Game</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 
 <body>
-  <h1>Guess The Number</h1>
-  <form action="#">
-    <div>
-      <label for="start">From: &nbsp;</label>
-      <input type="number" id="start" class="setting">
+  <header>
+    <hgroup>
+      <h1>Guess The Number</h1>
+      <p>Gaming With Numbers</p>
+    </hgroup>
+  </header>
+  <main id="main">
+    <form action="#">
+      <div>
+        <label for="start">From: &nbsp;</label>
+        <input type="number" id="start" class="setting">
+      </div>
+      <div>
+        <label for="end">To: &nbsp; &nbsp; &nbsp</label>
+        <input type="number" id="end" class="setting">
+      </div>
+      <div>
+        <label for="count">Count: </label>
+        <input type="text" id="count" disabled>
+      </div>
+      <button type="button" id="startBtn">START THE GAME</button>
+    </form>
+    <div id="playBox">
+      <div id="player">
+        <span class="material-symbols-outlined" id="personIcon">person</span>
+        <input type="number" id="guessField1">
+        <input type="button" value="Check" id="check1" class="checkBtn">
+        <span id="hint1" class="material-symbols-outlined"></span>
+      </div>
+      <p id="results1"></p>
+      <div id="robot">
+        <span class="material-symbols-outlined" id="robotIcon">smart_toy</span>
+        <input type="number" id="guessField2" disabled>
+        <input type="button" value="Check" id="check2" class="checkBtn" disabled>
+        <span id="hint2" class="material-symbols-outlined"></span>
+      </div>
+      <p id="results2"></p>
     </div>
-    <div>
-      <label for="end">To: &nbsp; &nbsp; &nbsp</label>
-      <input type="number" id="end" class="setting">
-    </div>
-    <div>
-      <label for="count">Count: </label>
-      <input type="number" id="count" class="setting">
-    </div>
-    <button type="button" id="startBtn">START THE GAME</button>
-  </form>
-
-  <div id="game">
-    <div>
-      <label for="guessField">Enter a guess: </label>
-      <input type="number" id="guessField" class="guessField" />
-    </div>
-    <input type="submit" value="Submit guess" class="guessSubmit" />
-
-    <div class="resultParas">
-      <p class="guesses"></p>
-      <p class="lastResult"></p>
-      <p class="lowOrHi"></p>
-    </div>
-  </div>
+  </main>
   <script src="index.js"></script>
 </body>
 

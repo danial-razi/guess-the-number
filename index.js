@@ -1,104 +1,157 @@
 
-const guesses = document.querySelector(".guesses");
-const lastResult = document.querySelector(".lastResult");
-const lowOrHi = document.querySelector(".lowOrHi");
 
-const guessSubmit = document.querySelector(".guessSubmit");
-const guessField = document.querySelector(".guessField");
-
-const startField = document.querySelector('#start');
-const endField = document.querySelector("#end");
+const startRangeField = document.querySelector('#start');
+const endRangeField = document.querySelector('#end');
 const countField = document.querySelector('#count');
 const startBtn = document.querySelector('#startBtn');
-
-let guessCount = 1;
-let resetButton;
-let closeButton;
+const checkBtns = document.querySelectorAll('.checkBtn');
+const guessField1 = document.querySelector('#guessField1');
+const guessField2 = document.querySelector('#guessField2');
+const check1 = document.querySelector('#check1');
+const check2 = document.querySelector('#check2');
+const results1 = document.querySelector('#results1');
+const results2 = document.querySelector('#results2');
+const personIcon = document.querySelector('#personIcon');
+const robotIcon = document.querySelector('#robotIcon');
+const hint1 = document.querySelector('#hint1');
+const hint2 = document.querySelector('#hint2');
 let randomNumber;
+let turn;
+let aa;
+let bb;
+let gg;
+let counter = 0;
 
-startBtn.addEventListener('click', startGame);
 
-function startGame() {
-  let start = Number(startField.value) || 1;
-  let end = Number(endField.value) || 100;
-  let count = Number(countField.value) || 10;
-  const range = end - start + 1;
-  randomNumber = Math.floor(Math.random() * range) + start;
-  document.querySelector('#game').style.display = 'block';
-  startField.disabled = true;
-  endField.disabled = true;
-  countField.disabled = true;
-  console.log(randomNumber); //for test 
-}
+startBtn.addEventListener('click', () => {
+  createRandomNumber();
+  turn = setCounter();
+  alert(randomNumber);
+});
 
-function checkGuess() {
-  const userGuess = Number(guessField.value);
-  if (guessCount === 1) {
-    guesses.textContent = " guesses:";
-  }
-  guesses.textContent = `${guesses.textContent} ${userGuess}`;
-
-  if (userGuess === randomNumber) {
-    lastResult.textContent = "Congratulations! You got it right!";
-    lastResult.style.backgroundColor = "green";
-    lastResult.style.color = 'white';
-    lowOrHi.textContent = "";
-    setGameOver();
-  } else if (guessCount === (Number(countField.value) || 10)) {
-    lastResult.textContent = "!!!GAME OVER!!!";
-    lowOrHi.textContent = "";
-    setGameOver();
+checkBtns[0].addEventListener('click', () => {
+  let guess = +guessField1.value;
+  results1.textContent += ` ${guess}`;
+  if (guess === randomNumber) {
+    document.querySelector('#player').style.backgroundColor = 'green';
+    robotIcon.style.color = 'red';
+    document.querySelector('#robot').style.borderColor = 'red';
+    guessField1.disabled = true;
+    guessField2.disabled = true;
+    check1.disabled = true;
+    check2.disabled = true;
+    hint1.innerHTML = 'check';
+  } else if (guess > randomNumber) {
+    hint1.innerHTML = 'arrow_downward';
+    guessField1.disabled = true;
+    check1.disabled = true;
+    guessField2.disabled = false;
+    check2.disabled = false;
   } else {
-    lastResult.textContent = "Wrong!";
-    lastResult.style.backgroundColor = "red";
-    lastResult.style.color = 'white';
-    if (userGuess < randomNumber) {
-      lowOrHi.textContent = "Last guess was too low!";
-    } else if (userGuess > randomNumber) {
-      lowOrHi.textContent = "Last guess was too high!";
+    hint1.innerHTML = 'arrow_upward';
+    guessField1.disabled = true;
+    check1.disabled = true;
+    guessField2.disabled = false;
+    check2.disabled = false;
+  }
+});
+
+checkBtns[1].addEventListener('click', () => {
+  setTimeout(() => {
+    counter++;
+    if (counter == 1) {
+      aa = +startRangeField.value;
+      bb = +endRangeField.value;
+      gg = Math.floor((aa + bb) / 2);
+      guessField2.value = gg;
+      // results2.textContent += ` ${gg}`;
+      if (gg > randomNumber) {
+        hint2.innerHTML = 'arrow_downward';
+        guessField1.disabled = false;
+        check1.disabled = false;
+        guessField2.disabled = true;
+        check2.disabled = true;
+      }
+      if (gg < randomNumber) {
+        hint2.innerHTML = 'arrow_upward';
+        guessField1.disabled = false;
+        check1.disabled = false;
+        guessField2.disabled = true;
+        check2.disabled = true;
+      }
+      if (gg === randomNumber) {
+        personIcon.style.color = 'red';
+        robotIcon.style.color = 'green';
+        document.querySelector('#robot').style.backgroundColor = 'green';
+        guessField1.disabled = true;
+        guessField2.disabled = true;
+        check1.disabled = true;
+        check2.disabled = true;
+        hint2.innerHTML = 'check';
+      }
+    } else {
+      if (gg > randomNumber) {
+        bb = gg;
+        gg = Math.floor((aa + bb) / 2);
+        hint2.innerHTML = 'arrow_downward';
+        guessField1.disabled = false;
+        check1.disabled = false;
+        guessField2.disabled = true;
+        check2.disabled = true;
+      }
+      if (gg < randomNumber) {
+        aa = gg;
+        gg = Math.floor((aa + bb) / 2);
+        hint1.innerHTML = 'arrow_upward';
+        guessField1.disabled = false;
+        check1.disabled = false;
+        guessField2.disabled = true;
+        check2.disabled = true;
+      }
+      if (gg === randomNumber) {
+        personIcon.style.color = 'red';
+        document.querySelector('#robot').style.backgroundColor = 'green';
+        guessField1.disabled = true;
+        guessField2.disabled = true;
+        check1.disabled = true;
+        check2.disabled = true;
+        hint2.innerHTML = 'check';
+      }
     }
-  }
+    guessField2.value = gg;
+    results2.textContent += ` ${gg}`;
+    countField.value -= 1;
+  }, 1000);
+});
 
-  guessCount++;
-  guessField.value = "";
-  guessField.focus();
+function showPlayBox() {
+  document.querySelector('#playBox').style.visibility = 'visible';
+  document.querySelector('#playBox').style.opacity = 1;
 }
 
-guessSubmit.addEventListener("click", checkGuess);
-
-function setGameOver() {
-  guessField.disabled = true;
-  guessSubmit.disabled = true;
-  resetButton = document.createElement("button");
-  resetButton.textContent = "Play Again";
-  document.body.append(resetButton);
-  resetButton.addEventListener("click", resetGame);
+function setCounter() {
+  let n = 0;
+  let x = +startRangeField.value;
+  let y = +endRangeField.value;
+  let l = y - x;
+  while (2 ** n < l) {
+    n++;
+  }
+  countField.value = n;
+  return n;
 }
 
-function resetGame() {
-  guessCount = 1;
-
-  const resetParas = document.querySelectorAll(".resultParas p");
-  for (const resetPara of resetParas) {
-    resetPara.textContent = "";
+function createRandomNumber() {
+  let x = +startRangeField.value;
+  let y = +endRangeField.value;
+  if (x > y || x < 0 || y < 0) {
+    alert('Select a valid interval');
+  } else if (Math.abs(x - y) < 99) {
+    alert('The length of interval is smaller than 100');
+  } else {
+    randomNumber = Math.floor(Math.random() * (y - x + 1)) + x;
+    showPlayBox();
   }
-
-  resetButton.parentNode.removeChild(resetButton);
-
-  guessField.disabled = false;
-  guessSubmit.disabled = false;
-  guessField.value = "";
-  guessField.focus();
-
-  startField.disabled = false;
-  endField.disabled = false;
-  countField.disabled = false;
-
-  lastResult.style.backgroundColor = "white";
-
-  document.querySelector('#game').style.display = 'none';
-
-  // randomNumber = Math.floor(Math.random() * 100) + 1;
 }
 
 
