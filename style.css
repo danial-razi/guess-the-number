@@ -1,10 +1,7 @@
-
 body {
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
-  background: url(images/back.png) no-repeat;
-  background-position: center;
-  background-size: 100% 120vh;
+  background-color: #e5b1c7;
 }
 
 
@@ -23,8 +20,8 @@ form {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  align-items: center; 
-  margin-bottom: 30px; 
+  align-items: center;
+  margin-bottom: 30px;
 }
 
 #count {
@@ -53,18 +50,22 @@ form {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 50px;
+  gap: 10px;
   visibility: hidden;
   opacity: 0;
   transition: all 1s;
 }
 
-#personIcon, #robotIcon {
-  font-size: 3.5em;
+#personIcon,
+#robotIcon {
+  font-size: 2.5em;
   background-color: #eee;
 }
 
-#player, #robot {
+#player,
+#robot {
+  width: 75%;
+  max-width: 400px;
   display: flex;
   align-items: center;
   gap: 1em;
@@ -73,13 +74,35 @@ form {
   background-color: rgb(235, 12, 93);
 }
 
-#results1, #results2 {
-  margin-top: -35px;
+#results1,
+#results2 {
+  margin-top: -5px;
   background-color: rgb(244, 134, 220);
-  width: 28%;
+  width: 75%;
+  max-width: 500px;
   text-align: center;
 }
 
 .checkBtn {
   padding: 5px;
+}
+
+dialog {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  position: absolute;
+  top: 25%;
+  bottom: 25%;
+  background-color: rgb(228, 194, 228);
+}
+
+
+@media all and (min-width: 800px) {
+  body {
+    background: url(images/back.png) no-repeat;
+    background-position: center;
+    background-size: 100% 120vh;
+  }
 }

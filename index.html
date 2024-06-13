@@ -15,6 +15,7 @@
     <hgroup>
       <h1>Guess The Number</h1>
       <p>Gaming With Numbers</p>
+      <button id="intro">More Info</button>
     </hgroup>
   </header>
   <main id="main">
@@ -50,6 +51,23 @@
       <p id="results2"></p>
     </div>
   </main>
+  <dialog dir="rtl">
+    <h2>بازی حدس عدد</h2>
+    <p>توضیحات</p>
+    <p>توضیحات</p>
+    <p>توضیحات</p>
+    <button id="closeDialog">متوجه شدم</button>
+  </dialog>
+  <script>
+    document.querySelector('#intro').addEventListener('click', () => {
+      document.querySelector('dialog').style.display = 'flex';
+      document.body.style.backgroundColor = 'lightgray';
+    });
+
+    document.querySelector('#closeDialog').addEventListener('click', () => {
+      document.querySelector('dialog').style.display = 'none';
+    });
+  </script>
   <script src="index.js"></script>
 </body>
 
