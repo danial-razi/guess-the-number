@@ -26,7 +26,6 @@ let counter = 0;
 startBtn.addEventListener('click', () => {
   createRandomNumber();
   turn = setCounter();
-  alert(randomNumber);
 });
 
 checkBtns[0].addEventListener('click', () => {
@@ -153,3 +152,7 @@ function createRandomNumber() {
     showPlayBox();
   }
 }
+
+document.querySelector('#reset').addEventListener('click', () => {
+  location.reload();
+});
